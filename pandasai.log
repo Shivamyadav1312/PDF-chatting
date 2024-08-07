@@ -1,0 +1,1303 @@
+2024-07-25 09:53:13 [INFO] Question: what knowledge do you have ?
+2024-07-25 09:53:13 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2024-07-25 09:53:13 [INFO] Prompt ID: 399ad9a7-7175-4a5f-bfe5-83b44ec54ec8
+2024-07-25 09:53:13 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-07-25 09:53:13 [INFO] Executing Step 0: ValidatePipelineInput
+2024-07-25 09:53:13 [INFO] Executing Step 1: CacheLookup
+2024-07-25 09:53:13 [INFO] Executing Step 2: PromptGeneration
+2024-07-25 09:53:13 [INFO] Using prompt: <dataframe>
+dfs[0]:20421x9
+Sr No.,Date of Encashment,Name of the Political Party,"Account no. ofPolitical Party",Prefix,"BondNumber",Denominations,"Pay BranchCode",Pay Teller
+10866,19-Jan-21,SIKKIM DEMOCRATIC FRONT,*******6354,OL,11677,"1,00,00,000",300,5665493
+13478,19-Apr-23,SHIVSENA,*******4012,TT,14904,"1,00,000",167,5880793
+637,22-Nov-22,SIKKIM KRANTIKARI MORCHA,*******2758,TL,15237,"1,000",509,5690595
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ what knowledge do you have ?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-07-25 09:53:13 [INFO] Executing Step 3: CodeGenerator
+2024-07-25 09:53:14 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 09:53:14 [INFO] Prompt used:
+            
+<dataframe>
+dfs[0]:20421x9
+Sr No.,Date of Encashment,Name of the Political Party,"Account no. ofPolitical Party",Prefix,"BondNumber",Denominations,"Pay BranchCode",Pay Teller
+10866,19-Jan-21,SIKKIM DEMOCRATIC FRONT,*******6354,OL,11677,"1,00,00,000",300,5665493
+13478,19-Apr-23,SHIVSENA,*******4012,TT,14904,"1,00,000",167,5880793
+637,22-Nov-22,SIKKIM KRANTIKARI MORCHA,*******2758,TL,15237,"1,000",509,5690595
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ what knowledge do you have ?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-07-25 09:53:14 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is a list of dataframes, we will work with the first dataframe
+df = dfs[0]
+
+# Convert the 'Denominations' column to numeric values
+df['Denominations'] = df['Denominations'].str.replace(',', '').astype(int)
+
+# Group by 'Name of the Political Party' and calculate the sum of 'Denominations'
+party_denominations = df.groupby('Name of the Political Party')['Denominations'].sum().reset_index()
+
+# Find the political party with the highest total denomination
+highest_party = party_denominations.loc[party_denominations['Denominations'].idxmax()]
+
+# Plot a bar chart of the top 5 political parties by total denomination
+top_parties = party_denominations.nlargest(5, 'Denominations')
+plt.bar(top_parties['Name of the Political Party'], top_parties['Denominations'])
+plt.xlabel('Political Party')
+plt.ylabel('Total Denomination')
+plt.title('Top 5 Political Parties by Total Denomination')
+plt.savefig('party_denominations.png')
+
+# Declare the result variable
+result = {
+    "type": "string",
+    "value": f"The political party with the highest total denomination is {highest_party['Name of the Political Party']} with a total of {highest_party['Denominations']}."
+}
+            ```
+            
+2024-07-25 09:53:14 [INFO] Executing Step 4: CachePopulation
+2024-07-25 09:53:15 [INFO] Executing Step 5: CodeCleaning
+2024-07-25 09:53:15 [INFO] Saving charts to C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\exports\charts\temp_chart.png
+2024-07-25 09:53:15 [INFO] 
+Code running:
+```
+df = dfs[0]
+df['Denominations'] = df['Denominations'].str.replace(',', '').astype(int)
+party_denominations = df.groupby('Name of the Political Party')['Denominations'].sum().reset_index()
+highest_party = party_denominations.loc[party_denominations['Denominations'].idxmax()]
+top_parties = party_denominations.nlargest(5, 'Denominations')
+plt.bar(top_parties['Name of the Political Party'], top_parties['Denominations'])
+plt.xlabel('Political Party')
+plt.ylabel('Total Denomination')
+plt.title('Top 5 Political Parties by Total Denomination')
+plt.savefig('C:/Aditya/Internship/CybraneX/pdf-chat-main/pdf-chat-main/exports/charts/temp_chart.png')
+result = {'type': 'string', 'value': f"The political party with the highest total denomination is {highest_party['Name of the Political Party']} with a total of {highest_party['Denominations']}."}
+        ```
+2024-07-25 09:53:15 [INFO] Executing Step 6: CodeExecution
+2024-07-25 09:53:15 [INFO] Executing Step 7: ResultValidation
+2024-07-25 09:53:15 [INFO] Answer: {'type': 'string', 'value': 'The political party with the highest total denomination is BHARATIYA JANATA PARTY with a total of 60605111000.'}
+2024-07-25 09:53:15 [INFO] Executing Step 8: ResultParsing
+2024-07-25 09:53:43 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 09:53:43 [INFO] Question: do you know anything about the denomination of AAM AADMI PARTY in total ?
+2024-07-25 09:53:43 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2024-07-25 09:53:43 [INFO] Prompt ID: 23ad8ae7-db44-4e3b-ae9c-cfee3c7c8266
+2024-07-25 09:53:43 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-07-25 09:53:43 [INFO] Executing Step 0: ValidatePipelineInput
+2024-07-25 09:53:43 [INFO] Executing Step 1: CacheLookup
+2024-07-25 09:53:43 [INFO] Executing Step 2: PromptGeneration
+2024-07-25 09:53:43 [INFO] Using prompt: <dataframe>
+dfs[0]:20421x9
+Sr No.,Date of Encashment,Name of the Political Party,"Account no. ofPolitical Party",Prefix,"BondNumber",Denominations,"Pay BranchCode",Pay Teller
+15306,19-Jan-21,TELUGU DESAM PARTY,*******0688,OC,10221,100000,300,7512201
+3350,20-Dec-22,JAMMU AND KASHMIR NATIONAL CONFERENCE,*******3929,TT,15411,1000000,1,5189071
+11492,20-Oct-21,JANASENA PARTY,*******6138,OL,13234,10000000,2295,3788504
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ do you know anything about the denomination of AAM AADMI PARTY in total ?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-07-25 09:53:43 [INFO] Executing Step 3: CodeGenerator
+2024-07-25 09:53:44 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 09:53:44 [INFO] Prompt used:
+            
+<dataframe>
+dfs[0]:20421x9
+Sr No.,Date of Encashment,Name of the Political Party,"Account no. ofPolitical Party",Prefix,"BondNumber",Denominations,"Pay BranchCode",Pay Teller
+15306,19-Jan-21,TELUGU DESAM PARTY,*******0688,OC,10221,100000,300,7512201
+3350,20-Dec-22,JAMMU AND KASHMIR NATIONAL CONFERENCE,*******3929,TT,15411,1000000,1,5189071
+11492,20-Oct-21,JANASENA PARTY,*******6138,OL,13234,10000000,2295,3788504
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ do you know anything about the denomination of AAM AADMI PARTY in total ?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-07-25 09:53:44 [INFO] Code generated:
+            ```
+            import pandas as pd
+
+# Assuming dfs is a list of dataframes, we'll work with the first dataframe
+df = dfs[0]
+
+# Filter the dataframe to get only the rows where the party name is 'AAM AADMI PARTY'
+aam_aadmi_df = df[df['Name of the Political Party'] == 'AAM AADMI PARTY']
+
+# Calculate the total denomination for AAM AADMI PARTY
+total_denomination = aam_aadmi_df['Denominations'].sum()
+
+# Declare the result variable as a dictionary
+result = {"type": "number", "value": total_denomination}
+            ```
+            
+2024-07-25 09:53:44 [INFO] Executing Step 4: CachePopulation
+2024-07-25 09:53:44 [INFO] Executing Step 5: CodeCleaning
+2024-07-25 09:53:44 [INFO] 
+Code running:
+```
+df = dfs[0]
+aam_aadmi_df = df[df['Name of the Political Party'] == 'AAM AADMI PARTY']
+total_denomination = aam_aadmi_df['Denominations'].sum()
+result = {'type': 'number', 'value': total_denomination}
+        ```
+2024-07-25 09:53:44 [INFO] Executing Step 6: CodeExecution
+2024-07-25 09:53:44 [INFO] Executing Step 7: ResultValidation
+2024-07-25 09:53:44 [INFO] Answer: {'type': 'number', 'value': 654500000}
+2024-07-25 09:53:44 [INFO] Executing Step 8: ResultParsing
+2024-07-25 10:07:19 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:07:20 [INFO] Question: what data do you have ?
+2024-07-25 10:07:20 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2024-07-25 10:07:20 [INFO] Prompt ID: 21cd6a4d-8fb0-499c-93e1-a5a39022be31
+2024-07-25 10:07:20 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-07-25 10:07:20 [INFO] Executing Step 0: ValidatePipelineInput
+2024-07-25 10:07:20 [INFO] Executing Step 1: CacheLookup
+2024-07-25 10:07:20 [INFO] Executing Step 2: PromptGeneration
+2024-07-25 10:07:20 [INFO] Executing Step 3: CodeGenerator
+2024-07-25 10:07:21 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:07:21 [INFO] Code generated:
+            ```
+            import pandas as pd
+
+# Assuming dfs is a list of DataFrames, and we're interested in the first DataFrame
+df = dfs[0]
+
+# Print the shape of the DataFrame
+print(f"DataFrame shape: {df.shape}")
+
+# Print the column names
+print("Column names:")
+print(df.columns)
+
+# Print the first few rows of the DataFrame
+print("First few rows:")
+print(df.head())
+
+# Declare result var:
+result = {"type": "string", "value": f"This DataFrame has {df.shape[0]} rows and {df.shape[1]} columns."}
+
+print(result)
+            ```
+            
+2024-07-25 10:07:21 [INFO] Executing Step 4: CachePopulation
+2024-07-25 10:07:21 [INFO] Executing Step 5: CodeCleaning
+2024-07-25 10:07:21 [INFO] 
+Code running:
+```
+df = dfs[0]
+print(f'DataFrame shape: {df.shape}')
+print('Column names:')
+print(df.columns)
+print('First few rows:')
+print(df.head())
+result = {'type': 'string', 'value': f'This DataFrame has {df.shape[0]} rows and {df.shape[1]} columns.'}
+print(result)
+        ```
+2024-07-25 10:07:21 [INFO] Executing Step 6: CodeExecution
+2024-07-25 10:07:21 [INFO] Executing Step 7: ResultValidation
+2024-07-25 10:07:21 [INFO] Answer: {'type': 'string', 'value': 'This DataFrame has 3951 rows and 12 columns.'}
+2024-07-25 10:07:21 [INFO] Executing Step 8: ResultParsing
+2024-07-25 10:07:41 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:07:41 [INFO] Question: tell me about how many labels are negative ?
+2024-07-25 10:07:41 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2024-07-25 10:07:41 [INFO] Prompt ID: 7723d8f1-f9b8-44d1-9baa-99911c625ab5
+2024-07-25 10:07:41 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-07-25 10:07:41 [INFO] Executing Step 0: ValidatePipelineInput
+2024-07-25 10:07:41 [INFO] Executing Step 1: CacheLookup
+2024-07-25 10:07:41 [INFO] Executing Step 2: PromptGeneration
+2024-07-25 10:07:41 [INFO] Executing Step 3: CodeGenerator
+2024-07-25 10:07:43 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:07:43 [INFO] Code generated:
+            ```
+            import pandas as pd
+
+# Assuming dfs is a list of DataFrames, we'll work with the first one
+df = dfs[0]
+
+# Count the number of negative labels
+negative_labels = df['human_sentiment'].value_counts()['negative']
+
+# Declare result var:
+result = {"type": "number", "value": negative_labels}
+            ```
+            
+2024-07-25 10:07:43 [INFO] Executing Step 4: CachePopulation
+2024-07-25 10:07:43 [INFO] Executing Step 5: CodeCleaning
+2024-07-25 10:07:43 [INFO] 
+Code running:
+```
+df = dfs[0]
+negative_labels = df['human_sentiment'].value_counts()['negative']
+result = {'type': 'number', 'value': negative_labels}
+        ```
+2024-07-25 10:07:43 [INFO] Executing Step 6: CodeExecution
+2024-07-25 10:07:43 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandas\core\indexes\base.py", line 3802, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas\_libs\index.pyx", line 138, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 146, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index_class_helper.pxi", line 20, in pandas._libs.index.Float64Engine._check_type
+KeyError: 'negative'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 2, in <module>
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandas\core\series.py", line 981, in __getitem__
+    return self._get_value(key)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandas\core\series.py", line 1089, in _get_value
+    loc = self.index.get_loc(label)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandas\core\indexes\base.py", line 3804, in get_loc
+    raise KeyError(key) from err
+KeyError: 'negative'
+
+2024-07-25 10:07:43 [WARNING] Failed to execute code retrying with a correction framework [retry number: 1]
+2024-07-25 10:07:43 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-07-25 10:07:43 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-07-25 10:07:43 [INFO] Executing Step 1: CodeGenerator
+2024-07-25 10:07:44 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:07:44 [INFO] Code generated:
+            ```
+            df = dfs[0]
+negative_labels = (df['human_sentiment'] == 'negative').sum()
+result = {'type': 'number', 'value': negative_labels}
+            ```
+            
+2024-07-25 10:07:44 [INFO] Executing Step 2: CodeCleaning
+2024-07-25 10:07:44 [INFO] 
+Code running:
+```
+df = dfs[0]
+negative_labels = (df['human_sentiment'] == 'negative').sum()
+result = {'type': 'number', 'value': negative_labels}
+        ```
+2024-07-25 10:07:44 [INFO] Executing Step 7: ResultValidation
+2024-07-25 10:07:44 [INFO] Answer: {'type': 'number', 'value': 0}
+2024-07-25 10:07:44 [INFO] Executing Step 8: ResultParsing
+2024-07-25 10:19:26 [INFO] Question: what do you know ?
+
+2024-07-25 10:19:26 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2024-07-25 10:19:26 [INFO] Prompt ID: 1a57b18e-f132-4cc7-865b-8016d6d26aea
+2024-07-25 10:19:26 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-07-25 10:19:26 [INFO] Executing Step 0: ValidatePipelineInput
+2024-07-25 10:19:26 [INFO] Executing Step 1: CacheLookup
+2024-07-25 10:19:26 [INFO] Executing Step 2: PromptGeneration
+2024-07-25 10:19:26 [INFO] Using prompt: <dataframe>
+dfs[0]:20421x9
+Sr No.,Date of Encashment,Name of the Political Party,"Account no. ofPolitical Party",Prefix,"BondNumber",Denominations,"Pay BranchCode",Pay Teller
+8275,10-Jan-22,BIJU JANATA DAL,*******2758,TT,10037,"10,000",628,6013147
+6217,26-Jul-23,DRAVIDA MUNNETRA KAZHAGAM (DMK),*******8935,TL,16890,"1,00,000",167,3766535
+14203,17-Apr-23,SIKKIM DEMOCRATIC FRONT,*******4875,OL,11187,"10,00,000",300,3382516
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ what do you know ?
+
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-07-25 10:19:26 [INFO] Executing Step 3: CodeGenerator
+2024-07-25 10:19:28 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:19:28 [INFO] Prompt used:
+            
+<dataframe>
+dfs[0]:20421x9
+Sr No.,Date of Encashment,Name of the Political Party,"Account no. ofPolitical Party",Prefix,"BondNumber",Denominations,"Pay BranchCode",Pay Teller
+8275,10-Jan-22,BIJU JANATA DAL,*******2758,TT,10037,"10,000",628,6013147
+6217,26-Jul-23,DRAVIDA MUNNETRA KAZHAGAM (DMK),*******8935,TL,16890,"1,00,000",167,3766535
+14203,17-Apr-23,SIKKIM DEMOCRATIC FRONT,*******4875,OL,11187,"10,00,000",300,3382516
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ what do you know ?
+
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-07-25 10:19:28 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is a list of dataframes, we'll work with the first dataframe
+df = dfs[0]
+
+# Convert the Denominations column to numeric values
+df['Denominations'] = df['Denominations'].str.replace(',', '').astype(int)
+
+# Group by Political Party and calculate the total denomination
+party_denominations = df.groupby('Name of the Political Party')['Denominations'].sum().reset_index()
+
+# Find the political party with the highest total denomination
+highest_party = party_denominations.loc[party_denominations['Denominations'].idxmax()]
+
+# Plot a bar chart of the top 5 political parties by total denomination
+top_parties = party_denominations.nlargest(5, 'Denominations')
+plt.bar(top_parties['Name of the Political Party'], top_parties['Denominations'])
+plt.xlabel('Political Party')
+plt.ylabel('Total Denomination')
+plt.title('Top 5 Political Parties by Total Denomination')
+plt.savefig('party_denominations.png')
+
+# Declare the result variable
+result = {
+    "type": "string",
+    "value": f"The political party with the highest total denomination is {highest_party['Name of the Political Party']} with a total of {highest_party['Denominations']}."
+}
+            ```
+            
+2024-07-25 10:19:28 [INFO] Executing Step 4: CachePopulation
+2024-07-25 10:19:28 [INFO] Executing Step 5: CodeCleaning
+2024-07-25 10:19:28 [INFO] Saving charts to C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\exports\charts\temp_chart.png
+2024-07-25 10:19:28 [INFO] 
+Code running:
+```
+df = dfs[0]
+df['Denominations'] = df['Denominations'].str.replace(',', '').astype(int)
+party_denominations = df.groupby('Name of the Political Party')['Denominations'].sum().reset_index()
+highest_party = party_denominations.loc[party_denominations['Denominations'].idxmax()]
+top_parties = party_denominations.nlargest(5, 'Denominations')
+plt.bar(top_parties['Name of the Political Party'], top_parties['Denominations'])
+plt.xlabel('Political Party')
+plt.ylabel('Total Denomination')
+plt.title('Top 5 Political Parties by Total Denomination')
+plt.savefig('C:/Aditya/Internship/CybraneX/pdf-chat-main/pdf-chat-main/exports/charts/temp_chart.png')
+result = {'type': 'string', 'value': f"The political party with the highest total denomination is {highest_party['Name of the Political Party']} with a total of {highest_party['Denominations']}."}
+        ```
+2024-07-25 10:19:28 [INFO] Executing Step 6: CodeExecution
+2024-07-25 10:19:28 [INFO] Executing Step 7: ResultValidation
+2024-07-25 10:19:28 [INFO] Answer: {'type': 'string', 'value': 'The political party with the highest total denomination is BHARATIYA JANATA PARTY with a total of 60605111000.'}
+2024-07-25 10:19:28 [INFO] Executing Step 8: ResultParsing
+2024-07-25 10:19:55 [INFO] Question: I need to know the total denomination of all the parties in 2019?
+2024-07-25 10:19:55 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2024-07-25 10:19:55 [INFO] Prompt ID: 9bc3aabd-151c-4b67-86e7-60f80d2bcc64
+2024-07-25 10:19:55 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-07-25 10:19:55 [INFO] Executing Step 0: ValidatePipelineInput
+2024-07-25 10:19:55 [INFO] Executing Step 1: CacheLookup
+2024-07-25 10:19:55 [INFO] Executing Step 2: PromptGeneration
+2024-07-25 10:19:55 [INFO] Using prompt: <dataframe>
+dfs[0]:20421x9
+Sr No.,Date of Encashment,Name of the Political Party,"Account no. ofPolitical Party",Prefix,"BondNumber",Denominations,"Pay BranchCode",Pay Teller
+10529,17-Nov-23,BHARAT RASHTRA SAMITHI,*******9326,OT,16759,"10,000",847,3656179
+1516,13-May-19,MAHARASHTRAWADI GOMNTAK PARTY,*******8935,OC,8316,"1,00,00,000",1,5972302
+13684,12-Apr-19,TELUGU DESAM PARTY,*******4012,OL,14670,"10,00,000",509,3776182
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ I need to know the total denomination of all the parties in 2019?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-07-25 10:19:55 [INFO] Executing Step 3: CodeGenerator
+2024-07-25 10:19:57 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:19:57 [INFO] Prompt used:
+            
+<dataframe>
+dfs[0]:20421x9
+Sr No.,Date of Encashment,Name of the Political Party,"Account no. ofPolitical Party",Prefix,"BondNumber",Denominations,"Pay BranchCode",Pay Teller
+10529,17-Nov-23,BHARAT RASHTRA SAMITHI,*******9326,OT,16759,"10,000",847,3656179
+1516,13-May-19,MAHARASHTRAWADI GOMNTAK PARTY,*******8935,OC,8316,"1,00,00,000",1,5972302
+13684,12-Apr-19,TELUGU DESAM PARTY,*******4012,OL,14670,"10,00,000",509,3776182
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ I need to know the total denomination of all the parties in 2019?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-07-25 10:19:57 [INFO] Code generated:
+            ```
+            import pandas as pd
+
+# Assuming dfs is a list of dataframes, we'll work with the first dataframe
+df = dfs[0]
+
+# Filter the dataframe to only include rows where the year is 2019
+df_2019 = df[df['Date of Encashment'].str.contains('2019')]
+
+# Convert the Denominations column to numeric values
+df_2019['Denominations'] = df_2019['Denominations'].str.replace(',', '').astype(int)
+
+# Calculate the total denomination for each party in 2019
+total_denominations = df_2019.groupby('Name of the Political Party')['Denominations'].sum()
+
+# Create a result dictionary
+result = {"type": "dataframe", "value": total_denominations.to_frame()}
+            ```
+            
+2024-07-25 10:19:57 [INFO] Executing Step 4: CachePopulation
+2024-07-25 10:19:57 [INFO] Executing Step 5: CodeCleaning
+2024-07-25 10:19:57 [INFO] 
+Code running:
+```
+df = dfs[0]
+df_2019 = df[df['Date of Encashment'].str.contains('2019')]
+df_2019['Denominations'] = df_2019['Denominations'].str.replace(',', '').astype(int)
+total_denominations = df_2019.groupby('Name of the Political Party')['Denominations'].sum()
+result = {'type': 'dataframe', 'value': total_denominations.to_frame()}
+        ```
+2024-07-25 10:19:57 [INFO] Executing Step 6: CodeExecution
+2024-07-25 10:19:57 [INFO] Executing Step 7: ResultValidation
+2024-07-25 10:19:57 [INFO] Answer: {'type': 'dataframe', 'value': Empty DataFrame
+Columns: [Denominations]
+Index: []}
+2024-07-25 10:19:57 [INFO] Executing Step 8: ResultParsing
+2024-07-25 10:20:11 [INFO] Question: I need to know the total denomination of all the parties ?
+2024-07-25 10:20:11 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2024-07-25 10:20:11 [INFO] Prompt ID: 459056fb-20f7-409f-aa3f-c8d230a721d4
+2024-07-25 10:20:11 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-07-25 10:20:11 [INFO] Executing Step 0: ValidatePipelineInput
+2024-07-25 10:20:11 [INFO] Executing Step 1: CacheLookup
+2024-07-25 10:20:11 [INFO] Executing Step 2: PromptGeneration
+2024-07-25 10:20:11 [INFO] Using prompt: <dataframe>
+dfs[0]:20421x9
+Sr No.,Date of Encashment,Name of the Political Party,"Account no. ofPolitical Party",Prefix,"BondNumber",Denominations,"Pay BranchCode",Pay Teller
+12417,27-Jan-23,SHIROMANI AKALI DAL,*******7000,OC,27567,"1,00,00,000",1,5664918
+5240,12-Jul-21,GOA FORWARD PARTY,*******6675,OL,8442,"1,00,000",125,3788504
+1898,20-Oct-21,JANATA DAL ( SECULAR ),*******5076,TL,12017,"10,000",800,3911012
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ I need to know the total denomination of all the parties ?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-07-25 10:20:11 [INFO] Executing Step 3: CodeGenerator
+2024-07-25 10:20:12 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:20:12 [INFO] Prompt used:
+            
+<dataframe>
+dfs[0]:20421x9
+Sr No.,Date of Encashment,Name of the Political Party,"Account no. ofPolitical Party",Prefix,"BondNumber",Denominations,"Pay BranchCode",Pay Teller
+12417,27-Jan-23,SHIROMANI AKALI DAL,*******7000,OC,27567,"1,00,00,000",1,5664918
+5240,12-Jul-21,GOA FORWARD PARTY,*******6675,OL,8442,"1,00,000",125,3788504
+1898,20-Oct-21,JANATA DAL ( SECULAR ),*******5076,TL,12017,"10,000",800,3911012
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ I need to know the total denomination of all the parties ?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-07-25 10:20:12 [INFO] Code generated:
+            ```
+            import pandas as pd
+
+# Assuming dfs is a list of dataframes, we'll work with the first dataframe
+df = dfs[0]
+
+# Convert the 'Denominations' column to numeric values (remove commas and convert to int)
+df['Denominations'] = df['Denominations'].str.replace(',', '').astype(int)
+
+# Calculate the total denomination of all parties
+total_denomination = df['Denominations'].sum()
+
+# Declare result var:
+result = {"type": "number", "value": total_denomination}
+            ```
+            
+2024-07-25 10:20:12 [INFO] Executing Step 4: CachePopulation
+2024-07-25 10:20:12 [INFO] Executing Step 5: CodeCleaning
+2024-07-25 10:20:12 [INFO] 
+Code running:
+```
+df = dfs[0]
+df['Denominations'] = df['Denominations'].str.replace(',', '').astype(int)
+total_denomination = df['Denominations'].sum()
+result = {'type': 'number', 'value': total_denomination}
+        ```
+2024-07-25 10:20:12 [INFO] Executing Step 6: CodeExecution
+2024-07-25 10:20:12 [INFO] Executing Step 7: ResultValidation
+2024-07-25 10:20:12 [INFO] Answer: {'type': 'number', 'value': 127690893000}
+2024-07-25 10:20:12 [INFO] Executing Step 8: ResultParsing
+2024-07-25 10:20:32 [INFO] Question: what do you know ?
+
+2024-07-25 10:20:32 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2024-07-25 10:20:32 [INFO] Prompt ID: a82696a4-4877-44bc-a42e-4fd36079a92c
+2024-07-25 10:20:32 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-07-25 10:20:32 [INFO] Executing Step 0: ValidatePipelineInput
+2024-07-25 10:20:32 [INFO] Executing Step 1: CacheLookup
+2024-07-25 10:20:32 [INFO] Executing Step 2: PromptGeneration
+2024-07-25 10:20:32 [INFO] Executing Step 3: CodeGenerator
+2024-07-25 10:20:34 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:20:34 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is a list of dataframes and we are interested in the first dataframe
+df = dfs[0]
+
+# Calculate the average rating
+average_rating = df['Average rating'].mean()
+
+# Calculate the count of positive, neutral, and negative sentiments
+sentiment_counts = df['human_sentiment'].value_counts()
+
+# Plot a bar chart of sentiment counts
+plt.figure(figsize=(8, 6))
+sentiment_counts.plot(kind='bar')
+plt.title('Sentiment Counts')
+plt.xlabel('Sentiment')
+plt.ylabel('Count')
+plt.savefig('sentiment_counts.png')
+
+# Declare the result variable as a dictionary
+result = {
+    "type": "dataframe",
+    "value": pd.DataFrame({
+        "Average Rating": [average_rating],
+        "Positive Sentiment Count": [sentiment_counts.get('positive', 0)],
+        "Neutral Sentiment Count": [sentiment_counts.get('neutral', 0)],
+        "Negative Sentiment Count": [sentiment_counts.get('negative', 0)]
+    })
+}
+            ```
+            
+2024-07-25 10:20:34 [INFO] Executing Step 4: CachePopulation
+2024-07-25 10:20:34 [INFO] Executing Step 5: CodeCleaning
+2024-07-25 10:20:34 [INFO] Saving charts to C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\exports\charts\temp_chart.png
+2024-07-25 10:20:34 [INFO] 
+Code running:
+```
+df = dfs[0]
+average_rating = df['Average rating'].mean()
+sentiment_counts = df['human_sentiment'].value_counts()
+plt.figure(figsize=(8, 6))
+sentiment_counts.plot(kind='bar')
+plt.title('Sentiment Counts')
+plt.xlabel('Sentiment')
+plt.ylabel('Count')
+plt.savefig('C:/Aditya/Internship/CybraneX/pdf-chat-main/pdf-chat-main/exports/charts/temp_chart.png')
+result = {'type': 'dataframe', 'value': pd.DataFrame({'Average Rating': [average_rating], 'Positive Sentiment Count': [sentiment_counts.get('positive', 0)], 'Neutral Sentiment Count': [sentiment_counts.get('neutral', 0)], 'Negative Sentiment Count': [sentiment_counts.get('negative', 0)]})}
+        ```
+2024-07-25 10:20:34 [INFO] Executing Step 6: CodeExecution
+2024-07-25 10:20:34 [INFO] Executing Step 7: ResultValidation
+2024-07-25 10:20:34 [INFO] Answer: {'type': 'dataframe', 'value':    Average Rating  Positive Sentiment Count  Neutral Sentiment Count  Negative Sentiment Count
+0        7.012149                         0                        0                         0}
+2024-07-25 10:20:34 [INFO] Executing Step 8: ResultParsing
+2024-07-25 10:22:21 [INFO] Question: what do you know about ?
+2024-07-25 10:22:21 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2024-07-25 10:22:21 [INFO] Prompt ID: 2ebc1453-4826-4b8c-b73f-365ac52a9694
+2024-07-25 10:22:21 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-07-25 10:22:21 [INFO] Executing Step 0: ValidatePipelineInput
+2024-07-25 10:22:21 [INFO] Executing Step 1: CacheLookup
+2024-07-25 10:22:21 [INFO] Executing Step 2: PromptGeneration
+2024-07-25 10:22:21 [INFO] Executing Step 3: CodeGenerator
+2024-07-25 10:22:22 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:22:23 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is a list of dataframes, we'll work with the first dataframe
+df = dfs[0]
+
+# Calculate the average rating for each sentiment type
+sentiment_types = ['positive', 'neutral']
+average_ratings = {}
+for sentiment in sentiment_types:
+    sentiment_df = df[df['custom_model_sentiment'] == sentiment]
+    average_rating = sentiment_df['Average rating'].mean()
+    average_ratings[sentiment] = average_rating
+
+# Plot a bar chart of average ratings
+plt.bar(average_ratings.keys(), average_ratings.values())
+plt.xlabel('Sentiment Type')
+plt.ylabel('Average Rating')
+plt.title('Average Ratings by Sentiment Type')
+plt.savefig('average_ratings.png')
+
+# Declare result variable
+result = {"type": "plot", "value": "average_ratings.png"}
+            ```
+            
+2024-07-25 10:22:23 [INFO] Executing Step 4: CachePopulation
+2024-07-25 10:22:23 [INFO] Executing Step 5: CodeCleaning
+2024-07-25 10:22:23 [INFO] Saving charts to C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\exports\charts\temp_chart.png
+2024-07-25 10:22:23 [INFO] 
+Code running:
+```
+df = dfs[0]
+sentiment_types = ['positive', 'neutral']
+average_ratings = {}
+for sentiment in sentiment_types:
+    sentiment_df = df[df['custom_model_sentiment'] == sentiment]
+    average_rating = sentiment_df['Average rating'].mean()
+    average_ratings[sentiment] = average_rating
+plt.bar(average_ratings.keys(), average_ratings.values())
+plt.xlabel('Sentiment Type')
+plt.ylabel('Average Rating')
+plt.title('Average Ratings by Sentiment Type')
+plt.savefig('C:/Aditya/Internship/CybraneX/pdf-chat-main/pdf-chat-main/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Aditya/Internship/CybraneX/pdf-chat-main/pdf-chat-main/exports/charts/temp_chart.png'}
+        ```
+2024-07-25 10:22:23 [INFO] Executing Step 6: CodeExecution
+2024-07-25 10:22:23 [INFO] Executing Step 7: ResultValidation
+2024-07-25 10:22:23 [INFO] Answer: {'type': 'plot', 'value': 'C:/Aditya/Internship/CybraneX/pdf-chat-main/pdf-chat-main/exports/charts/temp_chart.png'}
+2024-07-25 10:22:23 [INFO] Executing Step 8: ResultParsing
+2024-07-25 10:22:24 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:22:48 [INFO] Question: how can you relate the two files ?
+
+2024-07-25 10:22:48 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2024-07-25 10:22:48 [INFO] Prompt ID: 9b16e3b0-67ff-437c-a3a1-1a2902bfc197
+2024-07-25 10:22:48 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-07-25 10:22:48 [INFO] Executing Step 0: ValidatePipelineInput
+2024-07-25 10:22:48 [INFO] Executing Step 1: CacheLookup
+2024-07-25 10:22:48 [INFO] Executing Step 2: PromptGeneration
+2024-07-25 10:22:48 [INFO] Executing Step 3: CodeGenerator
+2024-07-25 10:22:50 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:22:50 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is a list of DataFrames, we'll work with the first one
+df = dfs[0]
+
+# Let's analyze the sentiment columns
+sentiment_cols = ['beto_sentiment', 'vader_sentiment', 'bert_base', 'bart_sentiment', 'human_sentiment', 'custom_model_sentiment']
+
+# Calculate the average sentiment across all models
+avg_sentiment = df[sentiment_cols].mean(axis=1)
+
+# Plot a histogram of the average sentiment
+plt.hist(avg_sentiment, bins=10)
+plt.xlabel('Average Sentiment')
+plt.ylabel('Frequency')
+plt.title('Distribution of Average Sentiment')
+plt.savefig('sentiment_distribution.png')
+
+# Declare the result variable
+result = {"type": "plot", "value": "sentiment_distribution.png"}
+            ```
+            
+2024-07-25 10:22:50 [INFO] Executing Step 4: CachePopulation
+2024-07-25 10:22:50 [INFO] Executing Step 5: CodeCleaning
+2024-07-25 10:22:50 [INFO] Saving charts to C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\exports\charts\temp_chart.png
+2024-07-25 10:22:50 [INFO] 
+Code running:
+```
+df = dfs[0]
+sentiment_cols = ['beto_sentiment', 'vader_sentiment', 'bert_base', 'bart_sentiment', 'human_sentiment', 'custom_model_sentiment']
+avg_sentiment = df[sentiment_cols].mean(axis=1)
+plt.hist(avg_sentiment, bins=10)
+plt.xlabel('Average Sentiment')
+plt.ylabel('Frequency')
+plt.title('Distribution of Average Sentiment')
+plt.savefig('C:/Aditya/Internship/CybraneX/pdf-chat-main/pdf-chat-main/exports/charts/temp_chart.png')
+result = {'type': 'plot', 'value': 'C:/Aditya/Internship/CybraneX/pdf-chat-main/pdf-chat-main/exports/charts/temp_chart.png'}
+        ```
+2024-07-25 10:22:50 [INFO] Executing Step 6: CodeExecution
+2024-07-25 10:22:51 [INFO] Executing Step 7: ResultValidation
+2024-07-25 10:22:51 [INFO] Answer: {'type': 'plot', 'value': 'C:/Aditya/Internship/CybraneX/pdf-chat-main/pdf-chat-main/exports/charts/temp_chart.png'}
+2024-07-25 10:22:51 [INFO] Executing Step 8: ResultParsing
+2024-07-25 10:22:52 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:23:21 [INFO] Question: what are the total number of sentences in the hinglish data ?
+
+2024-07-25 10:23:21 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2024-07-25 10:23:21 [INFO] Prompt ID: c44f43b4-8677-4600-86b7-c680c332d04a
+2024-07-25 10:23:21 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-07-25 10:23:21 [INFO] Executing Step 0: ValidatePipelineInput
+2024-07-25 10:23:21 [INFO] Executing Step 1: CacheLookup
+2024-07-25 10:23:21 [INFO] Executing Step 2: PromptGeneration
+2024-07-25 10:23:21 [INFO] Executing Step 3: CodeGenerator
+2024-07-25 10:23:22 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:23:22 [INFO] Code generated:
+            ```
+            import pandas as pd
+
+# Assuming dfs is a list of DataFrames, we'll work with the first one
+df = dfs[0]
+
+# Count the total number of sentences in the Hinglish column
+total_sentences = len(df['Hinglish'])
+
+# Declare the result variable as a dictionary
+result = {"type": "number", "value": total_sentences}
+            ```
+            
+2024-07-25 10:23:22 [INFO] Executing Step 4: CachePopulation
+2024-07-25 10:23:22 [INFO] Executing Step 5: CodeCleaning
+2024-07-25 10:23:22 [INFO] 
+Code running:
+```
+df = dfs[0]
+total_sentences = len(df['Hinglish'])
+result = {'type': 'number', 'value': total_sentences}
+        ```
+2024-07-25 10:23:22 [INFO] Executing Step 6: CodeExecution
+2024-07-25 10:23:22 [INFO] Executing Step 7: ResultValidation
+2024-07-25 10:23:22 [INFO] Answer: {'type': 'number', 'value': 3951}
+2024-07-25 10:23:22 [INFO] Executing Step 8: ResultParsing
+2024-07-25 10:23:24 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:23:44 [INFO] Question: what was thr first question I asked ?
+
+2024-07-25 10:23:44 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2024-07-25 10:23:44 [INFO] Prompt ID: 0f1c4f56-bb77-4014-96a0-18478ccbdc75
+2024-07-25 10:23:44 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-07-25 10:23:44 [INFO] Executing Step 0: ValidatePipelineInput
+2024-07-25 10:23:44 [INFO] Executing Step 1: CacheLookup
+2024-07-25 10:23:44 [INFO] Executing Step 2: PromptGeneration
+2024-07-25 10:23:44 [INFO] Executing Step 3: CodeGenerator
+2024-07-25 10:23:45 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:23:45 [INFO] Code generated:
+            ```
+            import pandas as pd
+import matplotlib.pyplot as plt
+
+# Assuming dfs is a list of DataFrames, we'll work with the first one
+df = dfs[0]
+
+# Let's analyze the DataFrame
+print(df.head())  # print the first few rows
+print(df.info())  # print info about the DataFrame
+print(df.describe())  # print summary statistics
+
+# Let's answer the question: what was the first question I asked?
+first_question = df.iloc[0, 0]  # get the first question from the English column
+print(first_question)
+
+# Let's plot a chart of the Average rating column
+plt.hist(df['Average rating'], bins=10)
+plt.xlabel('Average Rating')
+plt.ylabel('Frequency')
+plt.title('Distribution of Average Ratings')
+plt.savefig('average_rating_hist.png')
+
+# Declare the result variable
+result = {
+    "type": "string",
+    "value": f"The first question was: {first_question}."
+}
+            ```
+            
+2024-07-25 10:23:45 [INFO] Executing Step 4: CachePopulation
+2024-07-25 10:23:45 [INFO] Executing Step 5: CodeCleaning
+2024-07-25 10:23:45 [INFO] Saving charts to C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\exports\charts\temp_chart.png
+2024-07-25 10:23:45 [INFO] 
+Code running:
+```
+df = dfs[0]
+print(df.head())
+print(df.info())
+print(df.describe())
+first_question = df.iloc[0, 0]
+print(first_question)
+plt.hist(df['Average rating'], bins=10)
+plt.xlabel('Average Rating')
+plt.ylabel('Frequency')
+plt.title('Distribution of Average Ratings')
+plt.savefig('C:/Aditya/Internship/CybraneX/pdf-chat-main/pdf-chat-main/exports/charts/temp_chart.png')
+result = {'type': 'string', 'value': f'The first question was: {first_question}.'}
+        ```
+2024-07-25 10:23:45 [INFO] Executing Step 6: CodeExecution
+2024-07-25 10:23:45 [INFO] Executing Step 7: ResultValidation
+2024-07-25 10:23:45 [INFO] Answer: {'type': 'string', 'value': 'The first question was: Program module is a file that contains instructions which are either in the form of source code or machine language.\n.'}
+2024-07-25 10:23:45 [INFO] Executing Step 8: ResultParsing
+2024-07-25 10:23:47 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:26:17 [INFO] Question: what do you know ?
+2024-07-25 10:26:17 [INFO] Running PandasAI with langchain_groq-chat LLM...
+2024-07-25 10:26:17 [INFO] Prompt ID: d85910d1-96e1-4847-a594-f63a2ce2aade
+2024-07-25 10:26:17 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-07-25 10:26:17 [INFO] Executing Step 0: ValidatePipelineInput
+2024-07-25 10:26:17 [INFO] Executing Step 1: CacheLookup
+2024-07-25 10:26:17 [INFO] Executing Step 2: PromptGeneration
+2024-07-25 10:26:17 [INFO] Using prompt: <dataframe>
+dfs[0]:20421x9
+Sr No.,Date of Encashment,Name of the Political Party,"Account no. ofPolitical Party",Prefix,"BondNumber",Denominations,"Pay BranchCode",Pay Teller
+6609,19-Oct-19,BIHAR PRADESH JANTA DAL(UNITED),*******1399,OT,12902,"1,00,00,000",2295,5880793
+3613,05-Jul-22,GOA FORWARD PARTY,*******4086,TT,14547,"1,00,000",232,6467970
+19626,10-Jan-24,BIJU JANATA DAL,*******5086,TL,14204,"10,00,000",691,149845
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ what do you know ?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-07-25 10:26:17 [INFO] Executing Step 3: CodeGenerator
+2024-07-25 10:26:18 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:26:18 [INFO] Prompt used:
+            
+<dataframe>
+dfs[0]:20421x9
+Sr No.,Date of Encashment,Name of the Political Party,"Account no. ofPolitical Party",Prefix,"BondNumber",Denominations,"Pay BranchCode",Pay Teller
+6609,19-Oct-19,BIHAR PRADESH JANTA DAL(UNITED),*******1399,OT,12902,"1,00,00,000",2295,5880793
+3613,05-Jul-22,GOA FORWARD PARTY,*******4086,TT,14547,"1,00,000",232,6467970
+19626,10-Jan-24,BIJU JANATA DAL,*******5086,TL,14204,"10,00,000",691,149845
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ what do you know ?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-07-25 10:26:18 [INFO] Code generated:
+            ```
+            import pandas as pd
+
+# Assuming dfs is a list of dataframes, we'll work with the first dataframe
+df = dfs[0]
+
+# Find the political party with the highest denomination
+max_denomination_party = df.loc[df['Denominations'].idxmax()]
+
+# Extract the party name and denomination
+party_name = max_denomination_party['Name of the Political Party']
+denomination = max_denomination_party['Denominations']
+
+# Create the result dictionary
+result = {
+    "type": "string",
+    "value": f"The political party with the highest denomination is {party_name} with a denomination of {denomination}."
+}
+            ```
+            
+2024-07-25 10:26:18 [INFO] Executing Step 4: CachePopulation
+2024-07-25 10:26:18 [INFO] Executing Step 5: CodeCleaning
+2024-07-25 10:26:18 [INFO] 
+Code running:
+```
+df = dfs[0]
+max_denomination_party = df.loc[df['Denominations'].idxmax()]
+party_name = max_denomination_party['Name of the Political Party']
+denomination = max_denomination_party['Denominations']
+result = {'type': 'string', 'value': f'The political party with the highest denomination is {party_name} with a denomination of {denomination}.'}
+        ```
+2024-07-25 10:26:18 [INFO] Executing Step 6: CodeExecution
+2024-07-25 10:26:18 [ERROR] Failed with error: Traceback (most recent call last):
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 2, in <module>
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandas\core\series.py", line 2564, in idxmax
+    i = self.argmax(axis, skipna, *args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandas\core\base.py", line 655, in argmax
+    return nanops.nanargmax(  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandas\core\nanops.py", line 88, in _f
+    raise TypeError(
+TypeError: reduction operation 'argmax' not allowed for this dtype
+
+2024-07-25 10:26:18 [WARNING] Failed to execute code retrying with a correction framework [retry number: 1]
+2024-07-25 10:26:18 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-07-25 10:26:18 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-07-25 10:26:18 [INFO] Using prompt: <dataframe>
+dfs[0]:20421x9
+Sr No.,Date of Encashment,Name of the Political Party,"Account no. ofPolitical Party",Prefix,"BondNumber",Denominations,"Pay BranchCode",Pay Teller
+6609,19-Oct-19,BIHAR PRADESH JANTA DAL(UNITED),*******1399,OT,12902,"1,00,00,000",2295,5880793
+3613,05-Jul-22,GOA FORWARD PARTY,*******4086,TT,14547,"1,00,000",232,6467970
+19626,10-Jan-24,BIJU JANATA DAL,*******5086,TL,14204,"10,00,000",691,149845
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ what do you know ?
+
+You generated this python code:
+df = dfs[0]
+max_denomination_party = df.loc[df['Denominations'].idxmax()]
+party_name = max_denomination_party['Name of the Political Party']
+denomination = max_denomination_party['Denominations']
+result = {'type': 'string', 'value': f'The political party with the highest denomination is {party_name} with a denomination of {denomination}.'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 2, in <module>
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandas\core\series.py", line 2564, in idxmax
+    i = self.argmax(axis, skipna, *args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandas\core\base.py", line 655, in argmax
+    return nanops.nanargmax(  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandas\core\nanops.py", line 88, in _f
+    raise TypeError(
+TypeError: reduction operation 'argmax' not allowed for this dtype
+
+
+Fix the python code above and return the new python code:
+2024-07-25 10:26:18 [INFO] Executing Step 1: CodeGenerator
+2024-07-25 10:26:20 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:26:20 [INFO] Prompt used:
+            
+<dataframe>
+dfs[0]:20421x9
+Sr No.,Date of Encashment,Name of the Political Party,"Account no. ofPolitical Party",Prefix,"BondNumber",Denominations,"Pay BranchCode",Pay Teller
+6609,19-Oct-19,BIHAR PRADESH JANTA DAL(UNITED),*******1399,OT,12902,"1,00,00,000",2295,5880793
+3613,05-Jul-22,GOA FORWARD PARTY,*******4086,TT,14547,"1,00,000",232,6467970
+19626,10-Jan-24,BIJU JANATA DAL,*******5086,TL,14204,"10,00,000",691,149845
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ what do you know ?
+
+You generated this python code:
+df = dfs[0]
+max_denomination_party = df.loc[df['Denominations'].idxmax()]
+party_name = max_denomination_party['Name of the Political Party']
+denomination = max_denomination_party['Denominations']
+result = {'type': 'string', 'value': f'The political party with the highest denomination is {party_name} with a denomination of {denomination}.'}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 85, in execute
+    result = self.execute_code(code_to_run, code_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 171, in execute_code
+    exec(code, environment)
+  File "<string>", line 2, in <module>
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandas\core\series.py", line 2564, in idxmax
+    i = self.argmax(axis, skipna, *args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandas\core\base.py", line 655, in argmax
+    return nanops.nanargmax(  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Aditya\Internship\CybraneX\pdf-chat-main\pdf-chat-main\env\Lib\site-packages\pandas\core\nanops.py", line 88, in _f
+    raise TypeError(
+TypeError: reduction operation 'argmax' not allowed for this dtype
+
+
+Fix the python code above and return the new python code:
+            
+2024-07-25 10:26:20 [INFO] Code generated:
+            ```
+            df = dfs[0]
+df['Denominations'] = df['Denominations'].str.replace(',', '').astype(int)
+max_denomination_party = df.loc[df['Denominations'].idxmax()]
+party_name = max_denomination_party['Name of the Political Party']
+denomination = max_denomination_party['Denominations']
+result = {'type': 'string', 'value': f'The political party with the highest denomination is {party_name} with a denomination of {denomination}.'}
+            ```
+            
+2024-07-25 10:26:20 [INFO] Executing Step 2: CodeCleaning
+2024-07-25 10:26:20 [INFO] 
+Code running:
+```
+df = dfs[0]
+df['Denominations'] = df['Denominations'].str.replace(',', '').astype(int)
+max_denomination_party = df.loc[df['Denominations'].idxmax()]
+party_name = max_denomination_party['Name of the Political Party']
+denomination = max_denomination_party['Denominations']
+result = {'type': 'string', 'value': f'The political party with the highest denomination is {party_name} with a denomination of {denomination}.'}
+        ```
+2024-07-25 10:26:20 [INFO] Executing Step 7: ResultValidation
+2024-07-25 10:26:20 [INFO] Answer: {'type': 'string', 'value': 'The political party with the highest denomination is ALL INDIA ANNA DRAVIDA MUNNETRA KAZHAGAM with a denomination of 10000000.'}
+2024-07-25 10:26:20 [INFO] Executing Step 8: ResultParsing
+2024-07-25 10:26:23 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:43:25 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-25 10:48:57 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
